@@ -1,0 +1,36 @@
+*.log
+tmp
+.idea
+.storybook-out
+env-*.txt
+packages/*/dist
+packages/*/.rpt2_cache
+# local runs
+test-report.xml
+# ci runs
+test-results
+/build
+**/__generated__/*.json
+.eslintcache
+tsconfig.tsbuildinfo
+
+# yarn zero install enabled
+.pnp.*
+.yarn/*
+#!.yarn/cache
+!.yarn/unplugged
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+
+node_modules
+
+# ci will cache these instead
+.yarn/cache
+
+# releaseFinalize
+packages/*/LICENSE
+packages/*/.npmignore
