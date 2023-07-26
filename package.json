@@ -2,7 +2,7 @@
   "name": "vite-plugin-tsconfig",
   "version": "1.0.0",
   "packageManager": "yarn@3.6.1",
-  "description": "Vite plugin that allows you to use different tsconfig files.",
+  "description": "Vite plugin that allows you to use alternate tsconfig files.",
   "type": "module",
   "main-note": "Though this is ESM only, the following main is to appease tsc and varieties of moduleResolution e.g. node vs nodenext, otherwise types aren't found. see https://github.com/rosskevin/ts-esm-workspaces/tree/bug-main-required-to-build#workaround ",
   "main": "./dist/index.js",
@@ -14,8 +14,7 @@
   },
   "sideEffects": false,
   "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com/"
+    "access": "public"
   },
   "scripts": {
     "build": "yarn clean && tsup-node",
