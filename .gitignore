@@ -9,7 +9,7 @@ packages/*/.rpt2_cache
 test-report.xml
 # ci runs
 test-results
-/build
+/dist
 **/__generated__/*.json
 .eslintcache
 tsconfig.tsbuildinfo
