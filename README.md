@@ -32,3 +32,7 @@ Preferably, this plugin should become obsolete if `vite` includes the option to 
 
 It's a total hack. In the `config` stage, if a current `tsconfig.json` exists, it will back it up. Once that is complete, it will write the content from the provided
 alternate tsconfig file to the default filename of `tsconfig.json`. When the build is finishing, it will remove the generated file and replace the original (if one existed).
+
+## Contributing
+
+PRs are accepted! This project is configured with `auto`, so feel free to submit a PR and `auto` will automatically create a `canary` release for you to try out.
