@@ -2,7 +2,7 @@
   "name": "vite-plugin-tsconfig",
   "version": "1.0.0",
   "packageManager": "yarn@3.6.1",
-  "description": "Vite plugin that allows you to use different tsconfig files.",
+  "description": "Vite plugin that allows you to use alternate tsconfig files.",
   "type": "module",
   "main-note": "Though this is ESM only, the following main is to appease tsc and varieties of moduleResolution e.g. node vs nodenext, otherwise types aren't found. see https://github.com/rosskevin/ts-esm-workspaces/tree/bug-main-required-to-build#workaround ",
   "main": "./dist/index.js",
@@ -14,8 +14,7 @@
   },
   "sideEffects": false,
   "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com/"
+    "access": "public"
   },
   "scripts": {
     "build": "yarn clean && tsup-node",
@@ -24,12 +23,11 @@
     "clean:yarn": "node ./scripts/clean-yarn.js",
     "lint": "eslint . --cache --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --cache --ext .js,.ts,.tsx --fix",
-    "test": "vitest",
+    "test": "echo 'no tests' && exit 0",
     "release": "yarn auto shipit"
   },
   "keywords": [
     "vite-plugin",
-    "loader",
     "tsconfig"
   ],
   "licenses": [
@@ -55,6 +53,8 @@
     "@auto-it/all-contributors": "^10.46.0",
     "@auto-it/first-time-contributor": "^10.46.0",
     "@auto-it/released": "^10.46.0",
+    "@types/marked": "^5",
+    "@types/marked-terminal": "^3.1.3",
     "auto": "^10.46.0",
     "eslint": "^8.43.0",
     "eslint-config-prettier": "^8.8.0",
@@ -69,11 +69,13 @@
     "eslint-plugin-storybook": "^0.6.12",
     "eslint-plugin-unicorn": "^47.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "execa": "^7.1.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8",
     "rimraf": "^5.0.1",
+    "tsup": "^7.1.0",
     "typescript": "^5.1.3",
     "vite": "^4.3.9",
     "vite-plugin-dts": "^3.0.0-beta.3",
@@ -86,5 +88,9 @@
       "first-time-contributor",
       "released"
     ]
+  },
+  "dependencies": {
+    "marked": "^5.1.2",
+    "marked-terminal": "^5.2.0"
   }
 }
