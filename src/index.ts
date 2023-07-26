@@ -102,7 +102,7 @@ const factory = (options: PluginOptions) => {
 
       if (fs.existsSync(backupFilename)) {
         log.info(`Restoring ${TSCONFIG} from backup`)
-        moveSync(backupFilename, tsconfigPath)
+        fs.renameSync(backupFilename, tsconfigPath)
       }
     },
   }
