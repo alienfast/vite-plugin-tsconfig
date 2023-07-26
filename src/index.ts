@@ -1,7 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { moveSync } from 'fs-extra'
 import { marked } from 'marked'
 import TerminalRenderer from 'marked-terminal'
 import { createLogger, LogLevel, Plugin } from 'vite'
@@ -65,7 +64,7 @@ const factory = (options: PluginOptions) => {
           fs.rmSync(backupFilename)
         }
 
-        moveSync(tsconfigPath, `${tsconfigPath}.bak`)
+        fs.renameSync(tsconfigPath, `${tsconfigPath}.bak`)
       }
 
       // now
