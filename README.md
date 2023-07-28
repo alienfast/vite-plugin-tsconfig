@@ -1,6 +1,11 @@
-# vite-plugin-tsconfig
+<p>
+<a href="/LICENSE"><img src="https://img.shields.io/github/license/alienfast/vite-plugin-tsconfig?style=flat-square" alt="MIT License"></a>
+<a href="https://www.typescriptlang.org"><img alt="Language" src="https://img.shields.io/badge/language-TypeScript-blue.svg?style=flat-square"></a>
+<a href="https://github.com/alienfast/vite-plugin-tsconfig/pulls"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=flat-square"></a>
+<a href="https://github.com/alienfast/vite-plugin-tsconfig/actions/workflows/release.yml"><img alt="build" src="https://img.shields.io/github/actions/workflow/status/alienfast/vite-plugin-tsconfig/release.yml?branch=main&logo=github&style=flat-square"></a>
+</p>
 
-[![npm version](https://badge.fury.io/js/vite-plugin-tsconfig.svg)](https://badge.fury.io/js/vite-plugin-tsconfig)
+# vite-plugin-tsconfig
 
 `yarn add -D vite-plugin-tsconfig`
 
