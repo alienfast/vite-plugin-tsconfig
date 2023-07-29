@@ -1,9 +1,7 @@
-<p>
-<a href="/LICENSE"><img src="https://img.shields.io/github/license/alienfast/vite-plugin-tsconfig?style=flat-square" alt="MIT License"></a>
-<a href="https://www.typescriptlang.org"><img alt="Language" src="https://img.shields.io/badge/language-TypeScript-blue.svg?style=flat-square"></a>
-<a href="https://github.com/alienfast/vite-plugin-tsconfig/pulls"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=flat-square"></a>
-<a href="https://github.com/alienfast/vite-plugin-tsconfig/actions/workflows/release.yml"><img alt="build" src="https://img.shields.io/github/actions/workflow/status/alienfast/vite-plugin-tsconfig/release.yml?branch=main&logo=github&style=flat-square"></a>
-</p>
+![MIT](https://img.shields.io/github/license/alienfast/vite-plugin-tsconfig?style=for-the-badge)
+![Version](https://img.shields.io/github/package-json/v/alienfast/vite-plugin-tsconfig?style=for-the-badge)
+![CI](https://img.shields.io/github/actions/workflow/status/alienfast/vite-plugin-tsconfig/release.yml?style=for-the-badge)
+![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=for-the-badge)
 
 # vite-plugin-tsconfig
 
