@@ -5,6 +5,8 @@ import { marked } from 'marked'
 import TerminalRenderer from 'marked-terminal'
 import { createLogger, LogLevel, Plugin } from 'vite'
 
+import { revertTsConfig, Swapped, swapTsConfig } from './util'
+
 marked.setOptions({
   renderer: new TerminalRenderer() as any,
 })
@@ -29,6 +31,11 @@ export interface PluginOptions {
    * Name of the replacement tsconfig file to use
    */
   filename: string
+
+  /**
+   * Relative paths to packages that should also have their tsconfig.json files swapped. e.g. ['packages/foo', 'packages/bar']
+   */
+  workspaces?: string[]
 }
 
 const TSCONFIG = 'tsconfig.json'
@@ -44,7 +51,7 @@ const factory = (options: PluginOptions) => {
   const log = createLogger(logLevel, { prefix: '[tsconfig]' })
 
   let root: string
-  let backupFilename: string
+  const swapped: Swapped[] = []
 
   const plugin: Plugin = {
     name: 'vite-plugin-tsconfig',
@@ -52,30 +59,22 @@ const factory = (options: PluginOptions) => {
     config(config) {
       root ??= config.root ?? process.cwd()
 
-      const tsconfigPath = path.resolve(root, TSCONFIG)
+      // swap the workspace tsconfig.json files
+      if (options.workspaces) {
+        for (const workspace of options.workspaces) {
+          const dir = path.resolve(root, workspace)
+          if (!fs.existsSync(dir)) {
+            throw new Error(`Expected workspace ${dir} to exist`)
+          }
 
-      // if the tsconfig file already exists, we need to back it up and replace it later
-      if (fs.existsSync(tsconfigPath)) {
-        log.info(`${TSCONFIG} already exists, moving it to ${TSCONFIG}.bak`)
-        backupFilename = path.resolve(root, `${TSCONFIG}.bak`)
-
-        // paranoia check
-        if (fs.existsSync(backupFilename)) {
-          fs.rmSync(backupFilename)
+          const swap = swapTsConfig(filename, dir, log)
+          swapped.push(swap)
         }
-
-        fs.renameSync(tsconfigPath, `${tsconfigPath}.bak`)
       }
 
-      // now
-      const providedTsConfig = path.resolve(root, filename)
-      if (!fs.existsSync(providedTsConfig)) {
-        throw new Error(`${providedTsConfig} does not exist.`)
-      }
-
-      log.info(`Creating ${TSCONFIG} from ${filename}`)
-      const providedTsConfigContent = fs.readFileSync(providedTsConfig, 'utf8')
-      fs.writeFileSync(tsconfigPath, BANNER + providedTsConfigContent)
+      // swap the root tsconfig.json file
+      const swap = swapTsConfig(filename, root, log)
+      swapped.push(swap)
     },
 
     closeBundle() {
@@ -83,26 +82,9 @@ const factory = (options: PluginOptions) => {
         throw new Error('Expected root to be set in the vite config hook.')
       }
 
-      const tsconfigPath = path.resolve(root, TSCONFIG)
-
-      // perhaps we never created the tsconfig file?
-      if (!fs.existsSync(tsconfigPath)) {
-        log.info('No tsconfig file found, nothing to do.')
-        return
-      }
-
-      // perhaps the user has a standard tsconfig file but we did not create it?
-      if (!hasBanner(tsconfigPath)) {
-        log.info('tsconfig.json found but it does not contain theb banner, nothing to do.')
-        return
-      }
-
-      log.info('Removing generated tsconfig.json')
-      fs.rmSync(tsconfigPath)
-
-      if (fs.existsSync(backupFilename)) {
-        log.info(`Restoring ${TSCONFIG} from backup`)
-        fs.renameSync(backupFilename, tsconfigPath)
+      // revert the tsconfig.json files
+      for (const swap of swapped) {
+        revertTsConfig(swap, log)
       }
     },
   }
