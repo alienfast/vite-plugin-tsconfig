@@ -7,5 +7,5 @@ export default defineConfig({
   clean: true,
   dts: true,
   format: ['esm'],
-  minify: true,
+  minify: false, // no need, and easier to debug downstream
 })
