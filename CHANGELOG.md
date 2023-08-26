@@ -1,3 +1,15 @@
+# v1.0.3 (Sat Aug 26 2023)
+
+#### ⚠️ Pushed to `main`
+
+- add monorepo root detection to avoid searching for non-existent paths when cwd is a workspace package. ([@rosskevin](https://github.com/rosskevin))
+
+#### Authors: 1
+
+- Kevin Ross ([@rosskevin](https://github.com/rosskevin))
+
+---
+
 # v1.0.2 (Sat Aug 26 2023)
 
 #### 🐛 Bug Fix
