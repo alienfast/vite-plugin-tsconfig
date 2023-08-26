@@ -1,3 +1,15 @@
+# v1.0.2 (Sat Aug 26 2023)
+
+#### 🐛 Bug Fix
+
+- Add `workspaces` option for monorepo [#2](https://github.com/alienfast/vite-plugin-tsconfig/pull/2) ([@rosskevin](https://github.com/rosskevin))
+
+#### Authors: 1
+
+- Kevin Ross ([@rosskevin](https://github.com/rosskevin))
+
+---
+
 # v1.0.1 (Wed Jul 26 2023)
 
 :tada: This release contains work from a new contributor! :tada:
