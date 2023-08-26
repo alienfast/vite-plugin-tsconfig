@@ -36,6 +36,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@alienfast/find-monorepo-root@npm:^1.0.9":
+  version: 1.0.9
+  resolution: "@alienfast/find-monorepo-root@npm:1.0.9::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alienfast%2Ffind-monorepo-root%2F1.0.9%2F80187ccc8ce827a0a4b95501b674d38567aeb0c0"
+  dependencies:
+    find-up: ^6.3.0
+    strip-json-comments: ^5.0.1
+  bin:
+    find-monorepo-root: dist/bin/findMonorepoRoot.js
+  checksum: 0f145d7e153aeace63b2cf51d78ff7e67fecf6bdc212f067ea58c35b0ba24fa95b501b21d96bef714fa3c7f2f2bfd441264bdd6ace1d9a2723f67c9123ef7c72
+  languageName: node
+  linkType: hard
+
 "@alienfast/tsconfig@npm:^1.0.1":
   version: 1.0.1
   resolution: "@alienfast/tsconfig@npm:1.0.1::__archiveUrl=https%3A%2F%2Fnpm.pkg.github.com%2Fdownload%2F%40alienfast%2Ftsconfig%2F1.0.1%2F3faf5a7e1dda9d3bb9ae27ba730ed161e1f97065"
@@ -3390,6 +3402,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"find-up@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "find-up@npm:6.3.0"
+  dependencies:
+    locate-path: ^7.1.0
+    path-exists: ^5.0.0
+  checksum: 9a21b7f9244a420e54c6df95b4f6fc3941efd3c3e5476f8274eb452f6a85706e7a6a90de71353ee4f091fcb4593271a6f92810a324ec542650398f928783c280
+  languageName: node
+  linkType: hard
+
 "flat-cache@npm:^3.0.4":
   version: 3.1.0
   resolution: "flat-cache@npm:3.1.0"
@@ -4613,6 +4635,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"locate-path@npm:^7.1.0":
+  version: 7.2.0
+  resolution: "locate-path@npm:7.2.0"
+  dependencies:
+    p-locate: ^6.0.0
+  checksum: c1b653bdf29beaecb3d307dfb7c44d98a2a98a02ebe353c9ad055d1ac45d6ed4e1142563d222df9b9efebc2bcb7d4c792b507fad9e7150a04c29530b7db570f8
+  languageName: node
+  linkType: hard
+
 "lodash.camelcase@npm:^4.3.0":
   version: 4.3.0
   resolution: "lodash.camelcase@npm:4.3.0"
@@ -4772,12 +4803,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:^7.0.4":
-  version: 7.0.4
-  resolution: "marked@npm:7.0.4"
+"marked@npm:^7.0.5":
+  version: 7.0.5
+  resolution: "marked@npm:7.0.5"
   bin:
     marked: bin/marked.js
-  checksum: e69cc5635d13aec3486340ee97b059a360c429cbbdbdbdf6d23cdf79b6f5e5edc3f3d649763b3482261705aa91e5f08b14f91dd85be1452a98b65230485d7f55
+  checksum: e136ab58cffae78e9e661136e8ba51c221aed1a4b7e60dcb9ae7d7241e87869e972b3d352ca3b9b7f56dba85709f848414d33060c4d0e88b3b80e01a3509e2ed
   languageName: node
   linkType: hard
 
@@ -5396,6 +5427,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"p-locate@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "p-locate@npm:6.0.0"
+  dependencies:
+    p-limit: ^4.0.0
+  checksum: 2bfe5234efa5e7a4e74b30a5479a193fdd9236f8f6b4d2f3f69e3d286d9a7d7ab0c118a2a50142efcf4e41625def635bd9332d6cbf9cc65d85eb0718c579ab38
+  languageName: node
+  linkType: hard
+
 "p-map@npm:^4.0.0":
   version: 4.0.0
   resolution: "p-map@npm:4.0.0"
@@ -5486,6 +5526,13 @@ __metadata:
   version: 4.0.0
   resolution: "path-exists@npm:4.0.0"
   checksum: 505807199dfb7c50737b057dd8d351b82c033029ab94cb10a657609e00c1bc53b951cfdbccab8de04c5584d5eff31128ce6afd3db79281874a5ef2adbba55ed1
+  languageName: node
+  linkType: hard
+
+"path-exists@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "path-exists@npm:5.0.0"
+  checksum: 8ca842868cab09423994596eb2c5ec2a971c17d1a3cb36dbf060592c730c725cd524b9067d7d2a1e031fef9ba7bd2ac6dc5ec9fb92aa693265f7be3987045254
   languageName: node
   linkType: hard
 
@@ -6566,6 +6613,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"strip-json-comments@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "strip-json-comments@npm:5.0.1"
+  checksum: b314af70c6666a71133e309a571bdb87687fc878d9fd8b38ebed393a77b89835b92f191aa6b0bc10dfd028ba99eed6b6365985001d64c5aef32a4a82456a156b
+  languageName: node
+  linkType: hard
+
 "strip-json-comments@npm:~2.0.1":
   version: 2.0.1
   resolution: "strip-json-comments@npm:2.0.1"
@@ -7295,6 +7349,7 @@ __metadata:
   resolution: "vite-plugin-tsconfig@workspace:."
   dependencies:
     "@alienfast/eslint-config": ^4.0.9
+    "@alienfast/find-monorepo-root": ^1.0.9
     "@alienfast/tsconfig": ^1.0.1
     "@auto-it/all-contributors": ^11.0.1
     "@auto-it/first-time-contributor": ^11.0.1
@@ -7318,7 +7373,7 @@ __metadata:
     execa: ^8.0.1
     husky: ^8.0.3
     lint-staged: ^14.0.1
-    marked: ^7.0.4
+    marked: ^7.0.5
     marked-terminal: ^5.2.0
     npm-run-all: ^4.1.5
     prettier: ^3.0.2

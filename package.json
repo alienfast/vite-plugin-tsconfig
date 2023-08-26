@@ -90,7 +90,8 @@
     ]
   },
   "dependencies": {
-    "marked": "^7.0.4",
+    "@alienfast/find-monorepo-root": "^1.0.9",
+    "marked": "^7.0.5",
     "marked-terminal": "^5.2.0"
   }
 }

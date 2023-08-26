@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { findMonorepoRoot, Result } from '@alienfast/find-monorepo-root'
 import { marked } from 'marked'
 import TerminalRenderer from 'marked-terminal'
 import { createLogger, LogLevel, Plugin } from 'vite'
@@ -56,11 +57,23 @@ const factory = (options: PluginOptions) => {
   const plugin: Plugin = {
     name: 'vite-plugin-tsconfig',
 
-    config(config) {
+    async config(config) {
       root ??= config.root ?? process.cwd()
 
+      let monorepoRoot: Result | undefined
+      try {
+        monorepoRoot = await findMonorepoRoot(root)
+      } catch (e) {
+        //
+      }
+
+      log.info(`monorepoRoot: ${monorepoRoot}`)
+
+      // e.g. if we are in a monorepo, but running vitest at the cwd of the package, we don't want to seek down from there and swap the tsconfig.json files
+      const isAtMonoRepoRoot = monorepoRoot !== undefined && monorepoRoot.dir === root
+
       // swap the workspace tsconfig.json files
-      if (options.workspaces) {
+      if (isAtMonoRepoRoot && options.workspaces) {
         for (const workspace of options.workspaces) {
           const dir = path.resolve(root, workspace)
           if (!fs.existsSync(dir)) {
