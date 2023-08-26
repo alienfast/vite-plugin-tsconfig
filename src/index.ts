@@ -67,7 +67,7 @@ const factory = (options: PluginOptions) => {
         //
       }
 
-      log.info(`monorepoRoot: ${monorepoRoot}`)
+      log.info(`monorepoRoot: ${monorepoRoot ? monorepoRoot.dir : '(none)'}`)
 
       // e.g. if we are in a monorepo, but running vitest at the cwd of the package, we don't want to seek down from there and swap the tsconfig.json files
       const isAtMonoRepoRoot = monorepoRoot !== undefined && monorepoRoot.dir === root
