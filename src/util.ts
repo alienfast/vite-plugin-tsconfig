@@ -11,6 +11,7 @@ marked.setOptions({
 
 const TSCONFIG = 'tsconfig.json'
 const BANNER = `// GENERATED via 'vite-plugin-tsconfig' - this should be automatically created and deleted inside the build process. \n`
+const BAK = 'bak.vite-plugin-tsconfig'
 
 const hasBanner = (tsconfigPath: string) => {
   const content = fs.readFileSync(tsconfigPath, 'utf8')
@@ -38,15 +39,15 @@ export const swapTsConfig = (filename: string, dir: string, log: Logger): Swappe
 
   // if the tsconfig.json file already exists, we need to back it up and replace it later
   if (fs.existsSync(tsconfigPath)) {
-    log.info(`${TSCONFIG} already exists, moving it to ${TSCONFIG}.bak at ${dir}`)
-    backupFilePath = path.resolve(dir, `${TSCONFIG}.bak`)
+    log.info(`${TSCONFIG} already exists, moving it to ${TSCONFIG}.${BAK} at ${dir}`)
+    backupFilePath = path.resolve(dir, `${TSCONFIG}.${BAK}`)
 
     // paranoia check
     if (fs.existsSync(backupFilePath)) {
       fs.rmSync(backupFilePath)
     }
 
-    fs.renameSync(tsconfigPath, `${tsconfigPath}.bak`)
+    fs.renameSync(tsconfigPath, `${tsconfigPath}.${BAK}`)
   }
 
   // now
@@ -55,7 +56,7 @@ export const swapTsConfig = (filename: string, dir: string, log: Logger): Swappe
     throw new Error(`${providedTsConfig} does not exist.`)
   }
 
-  log.info(`Creating ${TSCONFIG} from ${filename}`)
+  log.info(`Creating ${TSCONFIG} from ${filename} at ${dir}`)
   const providedTsConfigContent = fs.readFileSync(providedTsConfig, 'utf8')
   fs.writeFileSync(tsconfigPath, BANNER + providedTsConfigContent)
 
