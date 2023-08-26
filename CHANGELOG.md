@@ -1,3 +1,15 @@
+# v1.0.4 (Sat Aug 26 2023)
+
+#### ⚠️ Pushed to `main`
+
+- improve log message ([@rosskevin](https://github.com/rosskevin))
+
+#### Authors: 1
+
+- Kevin Ross ([@rosskevin](https://github.com/rosskevin))
+
+---
+
 # v1.0.3 (Sat Aug 26 2023)
 
 #### ⚠️ Pushed to `main`
