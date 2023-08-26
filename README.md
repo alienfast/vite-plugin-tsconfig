@@ -28,6 +28,11 @@ export default defineConfig({
 })
 ```
 
+## Features
+
+- allows a default `tsconfig.json`, in the end it will be put back in place
+- allows specifying `workspaces` for monorepo packages to be swapped at the same time as the root
+
 ## Why?
 
 As of 7/26/2023, `vite` does not allow users to specify alternate tsconfig files. Given a variety of needs including different development
