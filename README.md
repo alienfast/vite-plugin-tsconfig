@@ -45,10 +45,10 @@ Preferably, this plugin should become obsolete if `vite` includes the option to 
 It's a total hack. In the `config` stage, if a current `tsconfig.json` exists, it will back it up. Once that is complete, it will write the content from the provided
 alternate tsconfig file to the default filename of `tsconfig.json`. When the build is finishing, it will remove the generated file and replace the original (if one existed).
 
-## `workspaces:` - why?
+## `workspaces` - why?
 
 In monorepos, and specifically as we have seen with storybook usage and local tsconfig paths usage in development but not production, `vite` will try and `loadTsconfigJsonForFile`,
-which resolves as the package's `tsconfig.json` _regardless_ of what the root level `tsconfig.json` specifies. This means that if your development configurarations contain
+which resolves as the package's `tsconfig.json` _regardless_ of what the root level `tsconfig.json` specifies. This means that if your development configurations contain
 anythin incompatible with your CI/production configurations, vite is going to break. We added the `workspaces` property to allow this same file-swapping hack to operate
 in the workspace packages. We specifically did not try and read the root's `package.json` `workspaces` property because it may contain other packages that are irrelevant
 or that you do not want to provide the additional tsconfig `filename` to swap.
