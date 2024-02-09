@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-tsconfig",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "packageManager": "yarn@3.6.1",
   "description": "Vite plugin that allows you to use alternate tsconfig files.",
   "type": "module",
