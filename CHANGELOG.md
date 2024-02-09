@@ -1,3 +1,15 @@
+# v1.0.5 (Fri Feb 09 2024)
+
+#### ⚠️ Pushed to `main`
+
+- update triggers ([@rosskevin](https://github.com/rosskevin))
+
+#### Authors: 1
+
+- Kevin Ross ([@rosskevin](https://github.com/rosskevin))
+
+---
+
 # v1.0.4 (Sat Aug 26 2023)
 
 #### ⚠️ Pushed to `main`
