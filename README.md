@@ -3,7 +3,20 @@
 ![CI](https://img.shields.io/github/actions/workflow/status/alienfast/vite-plugin-tsconfig/release.yml?style=for-the-badge)
 ![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=for-the-badge)
 
-# vite-plugin-tsconfig
+# vite-plugin-tsconfig (ARCHIVED)
+
+This plugin is no longer necessary.  As of vite 7.1.5, the following has been tested and works:
+
+```ts
+  optimizeDeps: {
+    esbuildOptions: {
+      // https://esbuild.github.io/api/#tsconfig
+      tsconfig: isCI() ? 'tsconfig.build.json' : 'tsconfig.json',
+    },
+  }
+```
+
+Below, this remains for historical purposes only.
 
 `yarn add -D vite-plugin-tsconfig`
 
