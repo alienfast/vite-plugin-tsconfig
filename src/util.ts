@@ -15,8 +15,13 @@ const BANNER = `// GENERATED via 'vite-plugin-tsconfig' - this should be automat
 const BAK = 'bak.vite-plugin-tsconfig'
 
 const hasBanner = (tsconfigPath: string) => {
-  const content = fs.readFileSync(tsconfigPath, 'utf8')
-  return content.startsWith(BANNER.trim())
+  try {
+    const content = fs.readFileSync(tsconfigPath, 'utf8')
+    return content.startsWith(BANNER.trim())
+  } catch (error) {
+    // If we can't read the file, assume it doesn't have our banner
+    return false
+  }
 }
 
 export interface Swapped {
@@ -31,7 +36,7 @@ export interface Swapped {
  * @param log
  */
 export const swapTsConfig = (filename: string, dir: string, log: Logger): Swapped => {
-  if (!fs.existsSync) {
+  if (!fs.existsSync(dir)) {
     throw new Error(`Expected dir ${dir} to exist`)
   }
 
@@ -45,10 +50,18 @@ export const swapTsConfig = (filename: string, dir: string, log: Logger): Swappe
 
     // paranoia check
     if (fs.existsSync(backupFilePath)) {
-      fs.rmSync(backupFilePath)
+      try {
+        fs.rmSync(backupFilePath)
+      } catch (error) {
+        throw new Error(`Failed to remove existing backup file ${backupFilePath}: ${error}`)
+      }
     }
 
-    fs.renameSync(tsconfigPath, `${tsconfigPath}.${BAK}`)
+    try {
+      fs.renameSync(tsconfigPath, `${tsconfigPath}.${BAK}`)
+    } catch (error) {
+      throw new Error(`Failed to backup existing tsconfig ${tsconfigPath}: ${error}`)
+    }
   }
 
   // now
@@ -58,15 +71,25 @@ export const swapTsConfig = (filename: string, dir: string, log: Logger): Swappe
   }
 
   log.info(`Creating ${TSCONFIG} from ${filename} at ${dir}`)
-  const providedTsConfigContent = fs.readFileSync(providedTsConfig, 'utf8')
-  fs.writeFileSync(tsconfigPath, BANNER + providedTsConfigContent)
+  let providedTsConfigContent: string
+  try {
+    providedTsConfigContent = fs.readFileSync(providedTsConfig, 'utf8')
+  } catch (error) {
+    throw new Error(`Failed to read source tsconfig ${providedTsConfig}: ${error}`)
+  }
+
+  try {
+    fs.writeFileSync(tsconfigPath, BANNER + providedTsConfigContent)
+  } catch (error) {
+    throw new Error(`Failed to write generated tsconfig ${tsconfigPath}: ${error}`)
+  }
 
   return { dir, backupFilePath }
 }
 
 export const revertTsConfig = (swapped: Swapped, log: Logger) => {
   const { dir, backupFilePath } = swapped
-  if (!fs.existsSync) {
+  if (!fs.existsSync(dir)) {
     throw new Error(`Expected dir ${dir} to exist`)
   }
 
@@ -85,7 +108,11 @@ export const revertTsConfig = (swapped: Swapped, log: Logger) => {
   }
 
   log.info(`Removing generated tsconfig.json at ${dir}`)
-  fs.rmSync(tsconfigPath)
+  try {
+    fs.rmSync(tsconfigPath)
+  } catch (error) {
+    throw new Error(`Failed to remove generated tsconfig ${tsconfigPath}: ${error}`)
+  }
 
   if (!backupFilePath) {
     log.info(`No backup file to restore at ${dir}`)
@@ -94,7 +121,11 @@ export const revertTsConfig = (swapped: Swapped, log: Logger) => {
 
   if (fs.existsSync(backupFilePath)) {
     log.info(`Restoring ${TSCONFIG} from backup at ${dir}`)
-    fs.renameSync(backupFilePath, tsconfigPath)
+    try {
+      fs.renameSync(backupFilePath, tsconfigPath)
+    } catch (error) {
+      throw new Error(`Failed to restore backup ${backupFilePath} to ${tsconfigPath}: ${error}`)
+    }
   } else {
     // at this point it is expected
     log.error(`Backup file ${backupFilePath} does not exist.`)
