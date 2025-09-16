@@ -1,3 +1,15 @@
+# v2.0.0 (Tue Sep 16 2025)
+
+#### 💥 Breaking Change
+
+- Migrate to buildStart/buildEnd hooks with major refactoring [#4](https://github.com/alienfast/vite-plugin-tsconfig/pull/4) ([@rosskevin](https://github.com/rosskevin))
+
+#### Authors: 1
+
+- Kevin Ross ([@rosskevin](https://github.com/rosskevin))
+
+---
+
 # v1.0.5 (Fri Feb 09 2024)
 
 #### ⚠️ Pushed to `main`
