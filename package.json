@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-tsconfig",
   "version": "1.0.5",
-  "packageManager": "yarn@3.6.1",
+  "packageManager": "yarn@4.9.4",
   "description": "Vite plugin that allows you to use alternate tsconfig files.",
   "type": "module",
   "main-note": "Though this is ESM only, the following main is to appease tsc and varieties of moduleResolution e.g. node vs nodenext, otherwise types aren't found. see https://github.com/rosskevin/ts-esm-workspaces/tree/bug-main-required-to-build#workaround ",
@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "yarn clean && tsup-node",
-    "build:ide": "echo 'tsc -b' && tsc -b",
+    "typecheck": "echo 'tsc -b' && tsc -b",
     "clean": "node ./scripts/clean.js",
     "clean:yarn": "node ./scripts/clean-yarn.js",
     "lint": "eslint . --cache --ext .js,.ts,.tsx",
@@ -48,40 +48,31 @@
     "vite": ">=3.1.6"
   },
   "devDependencies": {
-    "@alienfast/eslint-config": "^4.0.9",
-    "@alienfast/tsconfig": "^1.0.1",
-    "@auto-it/all-contributors": "^11.0.1",
-    "@auto-it/first-time-contributor": "^11.0.1",
-    "@auto-it/released": "^11.0.1",
-    "@types/marked": "^5",
-    "@types/marked-terminal": "^3.1.3",
-    "auto": "^11.0.1",
-    "eslint": "^8.48.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-import-resolver-typescript": "^3.6.0",
-    "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-jest": "^27.2.3",
-    "eslint-plugin-n": "^16.0.2",
-    "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-simple-import-sort": "^10.0.0",
-    "eslint-plugin-storybook": "^0.6.13",
-    "eslint-plugin-unicorn": "^48.0.1",
-    "eslint-plugin-unused-imports": "^3.0.0",
-    "execa": "^8.0.1",
-    "husky": "^8.0.3",
-    "lint-staged": "^14.0.1",
+    "@alienfast/eslint-config": "^6.0.7",
+    "@alienfast/tsconfig": "^1.0.4",
+    "@auto-it/all-contributors": "^11.3.0",
+    "@auto-it/first-time-contributor": "^11.3.0",
+    "@auto-it/released": "^11.3.0",
+    "@types/marked": "^6",
+    "@types/marked-terminal": "^6.1.1",
+    "auto": "^11.3.0",
+    "eslint": "^9.35.0",
+    "execa": "^9.6.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.0.2",
-    "rimraf": "^5.0.1",
-    "tsup": "^7.2.0",
-    "typescript": "^5.2.2",
-    "vite": "^4.4.9",
-    "vite-plugin-dts": "^3.5.2",
-    "vitest": "^0.34.3"
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.5",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^3.2.4"
   },
   "auto": {
+    "canary": {
+      "target": "comment"
+    },
     "plugins": [
       "npm",
       "all-contributors",
@@ -91,7 +82,7 @@
   },
   "dependencies": {
     "@alienfast/find-monorepo-root": "^1.0.9",
-    "marked": "^7.0.5",
-    "marked-terminal": "^5.2.0"
+    "marked": "^16.3.0",
+    "marked-terminal": "^7.3.0"
   }
 }

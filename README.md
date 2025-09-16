@@ -3,9 +3,11 @@
 ![CI](https://img.shields.io/github/actions/workflow/status/alienfast/vite-plugin-tsconfig/release.yml?style=for-the-badge)
 ![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=for-the-badge)
 
-# vite-plugin-tsconfig (ARCHIVED)
+# vite-plugin-tsconfig
 
-This plugin is no longer necessary.  As of vite 7.1.5, the following has been tested and works:
+NOTE: This plugin is no longer necessary in _MOST_ cases, but still is necessary in monorepos that make extensive use of externalized paths.
+
+As of vite 7.1.5, the following has been tested and works for typical use cases:
 
 ```ts
   optimizeDeps: {
