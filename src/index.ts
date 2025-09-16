@@ -6,9 +6,10 @@ import { marked } from 'marked'
 import TerminalRenderer from 'marked-terminal'
 import { createLogger, LogLevel, Plugin } from 'vite'
 
-import { revertTsConfig, Swapped, swapTsConfig } from './util'
+import { revertTsConfig, Swapped, swapTsConfig } from './util.js'
 
 marked.setOptions({
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   renderer: new TerminalRenderer() as any,
 })
 

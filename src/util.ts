@@ -6,6 +6,7 @@ import TerminalRenderer from 'marked-terminal'
 import { Logger } from 'vite'
 
 marked.setOptions({
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   renderer: new TerminalRenderer() as any,
 })
 
