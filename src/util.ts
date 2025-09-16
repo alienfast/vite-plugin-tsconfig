@@ -5,22 +5,73 @@ import { marked } from 'marked'
 import TerminalRenderer from 'marked-terminal'
 import { Logger } from 'vite'
 
+import { BAK, BANNER, TSCONFIG } from './constants.js'
+
 marked.setOptions({
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   renderer: new TerminalRenderer() as any,
 })
 
-const TSCONFIG = 'tsconfig.json'
-const BANNER = `// GENERATED via 'vite-plugin-tsconfig' - this should be automatically created and deleted inside the build process. \n`
-const BAK = 'bak.vite-plugin-tsconfig'
-
-const hasBanner = (tsconfigPath: string) => {
+/**
+ * Check if a tsconfig file has our generated banner
+ */
+export const hasBanner = (tsconfigPath: string): boolean => {
   try {
     const content = fs.readFileSync(tsconfigPath, 'utf8')
     return content.startsWith(BANNER.trim())
   } catch (error) {
     // If we can't read the file, assume it doesn't have our banner
     return false
+  }
+}
+
+/**
+ * Safely remove a file with error handling
+ */
+export const safeRemoveFile = (filePath: string, log: Logger): void => {
+  try {
+    fs.rmSync(filePath)
+    log.info(`Removed file: ${filePath}`)
+  } catch (error) {
+    throw new Error(`Failed to remove file ${filePath}: ${error}`)
+  }
+}
+
+/**
+ * Safely rename a file with error handling
+ */
+export const safeRenameFile = (oldPath: string, newPath: string, log: Logger): void => {
+  try {
+    fs.renameSync(oldPath, newPath)
+    log.info(`Renamed ${oldPath} to ${newPath}`)
+  } catch (error) {
+    throw new Error(`Failed to rename ${oldPath} to ${newPath}: ${error}`)
+  }
+}
+
+/**
+ * Perform manual backup restoration with comprehensive error handling
+ */
+export const performManualRestore = (
+  tsconfigPath: string,
+  backupPath: string | undefined,
+  log: Logger,
+): void => {
+  if (!fs.existsSync(tsconfigPath) || !hasBanner(tsconfigPath)) {
+    return
+  }
+
+  log.warn(`Banner still present in ${tsconfigPath}, attempting manual cleanup`)
+
+  // Remove generated file
+  safeRemoveFile(tsconfigPath, log)
+
+  // Restore backup if it exists
+  if (backupPath && fs.existsSync(backupPath)) {
+    safeRenameFile(backupPath, tsconfigPath, log)
+    log.info(`Manually restored ${tsconfigPath} from backup`)
+  } else {
+    log.warn(`No backup file to restore for ${tsconfigPath}`)
   }
 }
 
@@ -50,18 +101,10 @@ export const swapTsConfig = (filename: string, dir: string, log: Logger): Swappe
 
     // paranoia check
     if (fs.existsSync(backupFilePath)) {
-      try {
-        fs.rmSync(backupFilePath)
-      } catch (error) {
-        throw new Error(`Failed to remove existing backup file ${backupFilePath}: ${error}`)
-      }
+      safeRemoveFile(backupFilePath, log)
     }
 
-    try {
-      fs.renameSync(tsconfigPath, `${tsconfigPath}.${BAK}`)
-    } catch (error) {
-      throw new Error(`Failed to backup existing tsconfig ${tsconfigPath}: ${error}`)
-    }
+    safeRenameFile(tsconfigPath, `${tsconfigPath}.${BAK}`, log)
   }
 
   // now
@@ -108,11 +151,7 @@ export const revertTsConfig = (swapped: Swapped, log: Logger) => {
   }
 
   log.info(`Removing generated tsconfig.json at ${dir}`)
-  try {
-    fs.rmSync(tsconfigPath)
-  } catch (error) {
-    throw new Error(`Failed to remove generated tsconfig ${tsconfigPath}: ${error}`)
-  }
+  safeRemoveFile(tsconfigPath, log)
 
   if (!backupFilePath) {
     log.info(`No backup file to restore at ${dir}`)
@@ -121,11 +160,7 @@ export const revertTsConfig = (swapped: Swapped, log: Logger) => {
 
   if (fs.existsSync(backupFilePath)) {
     log.info(`Restoring ${TSCONFIG} from backup at ${dir}`)
-    try {
-      fs.renameSync(backupFilePath, tsconfigPath)
-    } catch (error) {
-      throw new Error(`Failed to restore backup ${backupFilePath} to ${tsconfigPath}: ${error}`)
-    }
+    safeRenameFile(backupFilePath, tsconfigPath, log)
   } else {
     // at this point it is expected
     log.error(`Backup file ${backupFilePath} does not exist.`)
